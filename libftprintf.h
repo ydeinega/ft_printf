@@ -20,6 +20,7 @@
 # define TYPE_INT "diouxXDOUp"
 # define TYPE_PTR "n"
 # define TYPE_CHR "cCsS"
+# define TYPE_PER_CENT "%"
 # define TYPE_DBL "aAeEfFgG"
 
 typedef struct		s_m
@@ -94,7 +95,7 @@ void				apostrophe(char **str, int n);
 int					count_sep(unsigned long long num);
 char				*str_ap(char *s, char sep, int n);
 unsigned long long	u_num(long long num);
-void				precision_num(char **str, int prc);
+void				precision_num(char **str, int prc, unsigned long long num);//new
 void				sign_num(char **str, int sign, t_flags flag);
 void				width_num(char **str, t_flags flag, t_size mod);
 char				*minus_zero_num(char *str, int len, t_flags flag,
@@ -102,7 +103,7 @@ char				*minus_zero_num(char *str, int len, t_flags flag,
 void				minus_num(char **str, t_flags flag);
 void				sp_num(char **str, t_flags flag);
 void				plus_num(char **str, t_flags flag);
-void				hash_num(char **str, t_size mod, t_flags flag);
+void				hash_num(char **str, t_size mod, t_flags flag);//new
 void				make_toupper(char **str);
 void				arg_ptr(t_size mod, t_flags flag, va_list ap, va_list cp);
 long long			*arg_n(t_size mod, int dollar, va_list ap, va_list cp);
@@ -116,5 +117,6 @@ char				*make_str_wchr(wchar_t *w, t_size mod);
 char				*ft_unicode(wchar_t c);
 void				precision_chr(char **str, int prc);
 char				*ft_strjoin_leaks(char **s1, char **s2);
+int					arg_per_cent(t_flags flag, t_size mod);
 
 #endif

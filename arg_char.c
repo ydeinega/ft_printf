@@ -11,20 +11,24 @@
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+#include <stdio.h> // Del
 
 int		arg_char(t_size mod, t_flags flag, va_list ap, va_list cp)
 {
 	char	*s;
 	int		n;
 
+	n = 0;
 	s = conv_char(mod, flag.dol, ap, cp);
 	if (!s)
 		return (0);
+	if (ft_strlen(s) == 0 && (mod.s == 'c' || mod.s == 'C'))
+		n++;
 	if (flag.prc != -1)
 		precision_chr(&s, flag.prc);
 	if (flag.width)
 		width_num(&s, flag, mod);
-	n = ft_strlen(s);
+	n = n + ft_strlen(s);
 	write(1, s, n);
 	ft_strdel(&s);
 	return (n);

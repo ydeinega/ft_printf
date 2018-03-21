@@ -5,7 +5,7 @@ FLAGS = -Wall -Wextra -Werror -I. -c
 SRCS = apostrophe.c arg_char.c arg_num.c arg_ptr.c \
 conv_char.c conv_num.c dollar_flag.c flags.c flags_value.c \
 ft_printf.c itoa_base.c sign_num.c star_flag.c str_num.c \
-width_num.c
+width_num.c arg_per_cent.c
 
 SRCS_LIB = ./libft/ft_memset.c ./libft/ft_bzero.c ./libft/ft_memcpy.c ./libft/ft_memccpy.c ./libft/ft_memmove.c \
 ./libft/ft_memchr.c ./libft/ft_memcmp.c ./libft/ft_strlen.c ./libft/ft_strdup.c ./libft/ft_strcpy.c ./libft/ft_strncpy.c \

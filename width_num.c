@@ -19,6 +19,8 @@ void	width_num(char **str, t_flags flag, t_size mod)
 
 	s = *str;
 	len = ft_strlen(s);
+	if (len == 0 && (mod.s == 'c' || mod.s == 'C'))
+		len++;
 	if (flag.width > len)
 	{
 		*str = minus_zero_num(s, len, flag, mod);
@@ -33,23 +35,23 @@ char	*minus_zero_num(char *str, int len, t_flags flag, t_size mod)
 	s_new = ft_strnew(flag.width);
 	if (!s_new)
 		return (NULL);
-	if (flag.minus)
+	if (flag.minus && !ft_strlen(str) && (mod.s == 'c' || mod.s == 'C')) 
+		s_new = ft_memset(s_new, ' ', flag.width - len);
+	else if (flag.minus)
 	{
-		s_new = ft_strcpy(s_new, str);
-		while (len < flag.width)
-		{
-			s_new[len] = ' ';
-			len++;
-		}
+		ft_strcpy(s_new, str);
+		ft_memset(&s_new[len], ' ', flag.width - len);
+		return (s_new);
 	}
 	else
 	{
 		if ((flag.zero && flag.prc == -1 && ft_strchr(TYPE_INT, mod.s)) ||
-			(flag.zero && ft_strchr(TYPE_CHR, mod.s)))
+			(flag.zero && ft_strchr(TYPE_CHR, mod.s)) ||
+			(flag.zero && ft_strchr(TYPE_PER_CENT, mod.s)))
 			s_new = ft_memset(s_new, '0', flag.width - len);
 		else
 			s_new = ft_memset(s_new, ' ', flag.width - len);
-		ft_strcpy(&s_new[flag.width - len], str);
 	}
+	ft_strcpy(&s_new[flag.width - len], str);
 	return (s_new);
 }

@@ -124,6 +124,7 @@ char	specifier_rest(char *fmt)
 		return ('G');
 	else if (ft_strchr(fmt, 'g'))
 		return ('g');
-	else
-		return ('0');
+	else if (ft_strchr(fmt, '%'))
+		return ('%');
+	return ('0');
 }

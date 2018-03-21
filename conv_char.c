@@ -42,6 +42,7 @@ char	*conv_chr_dol(t_size mod, int dollar, va_list cp)
 	return (s);
 }
 
+//NORM
 char	*conv_chr(t_size mod, va_list ap)
 {
 	char	*s;
@@ -61,9 +62,15 @@ char	*conv_chr(t_size mod, va_list ap)
 		s[0] = (char)va_arg(ap, int);
 	}
 	if (mod.s == 'S' || (mod.s == 's' && mod.l))
+	{
 		w = va_arg(ap, wchar_t *);
+		s = !w ? ft_strdup("(null)") : NULL;
+	}
 	else if (mod.s == 's')
-		s = ft_strdup(va_arg(ap, char *));
+	{
+		s = va_arg(ap, char *);
+		s = !s ? ft_strdup("(null)") : ft_strdup(s);
+	}
 	if (w && !s)
 		s = make_str_wchr(w, mod);
 	return (s);

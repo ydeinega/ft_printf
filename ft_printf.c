@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+#include <stdio.h> //DEL
 
 int		ft_printf(const char *format, ...)
 {
@@ -27,6 +28,36 @@ int		ft_printf(const char *format, ...)
 	return (n);
 }
 
+int		print_format(const char *format, int n, va_list ap, va_list cp)
+{
+	int		i;
+	char	*s;
+	char	*tmp;
+
+	i = 0;
+	s = ft_strdup(format);
+	while (s[i])
+	{
+		if (s[i] != '%')
+		{
+			ft_putchar(s[i]);
+			n++;
+			i++;
+		}
+		else
+		{
+			tmp = s;
+			s = &s[i];
+			n = n + parsing(&s, n, ap, cp);
+			i = 0;
+			ft_strdel(&tmp);
+		}
+	}
+	ft_strdel(&s);
+	return (n);
+}
+
+/*
 int		print_format(const char *format, int n, va_list ap, va_list cp)
 {
 	int		i;
@@ -55,6 +86,7 @@ int		print_format(const char *format, int n, va_list ap, va_list cp)
 	ft_strdel(&s);
 	return (n);
 }
+*/
 
 int		parsing(char **str, int n, va_list ap, va_list cp)
 {
@@ -67,6 +99,7 @@ int		parsing(char **str, int n, va_list ap, va_list cp)
 	ret = 0;
 	fmt = NULL;
 	b_type = extract_fmt(str, &fmt);
+	//printf("%s\n", fmt);//DEL
 	if (fmt)
 	{
 		mod = parse_modifiers(fmt);
@@ -79,6 +112,8 @@ int		parsing(char **str, int n, va_list ap, va_list cp)
 		arg_ptr(mod, flag, ap, cp);
 	if (b_type == 3)
 		ret = arg_char(mod, flag, ap, cp);
+	if (b_type == 4)
+		ret = arg_per_cent(flag, mod);
 	return (ret);
 }
 
@@ -115,8 +150,10 @@ int		basic_type(char c)
 		return (2);
 	else if (ft_strchr(TYPE_CHR, c))
 		return (3);
-	else if (ft_strchr(TYPE_DBL, c))
+	else if (ft_strchr(TYPE_PER_CENT, c))
 		return (4);
+	else if (ft_strchr(TYPE_DBL, c))
+		return (5);
 	else
 		return (-1);
 }
