@@ -53,22 +53,38 @@ char	*conv_chr(t_size mod, va_list ap)
 	s = NULL;
 	w = NULL;
 	nbyte = MB_CUR_MAX;
-	if ((mod.s == 'C' || (mod.s == 'c' && mod.l)) && nbyte > 1)
+	if (mod.s == 'C' || (mod.s == 'c' && mod.l))
 	{
-		c = (wchar_t)va_arg(ap, wint_t);
-		w = &c;
+		if (nbyte > 1)
+		{
+			c = (wchar_t)va_arg(ap, wint_t);
+			w = &c;
+		}
+		else
+		{
+			s = ft_strnew(1);
+			s[0] = (char)va_arg(ap, int);
+		}
 	}
-	else if (mod.s == 'c' || mod.s == 'C')
+	else if (mod.s == 'c')
 	{
 		s = ft_strnew(1);
 		s[0] = (char)va_arg(ap, int);
 	}
 	if ((mod.s == 'S' || (mod.s == 's' && mod.l)) && nbyte > 1)
 	{
-		w = va_arg(ap, wchar_t *);
-		s = !w ? ft_strdup("(null)") : NULL;
+		if (nbyte > 1)
+		{
+			w = va_arg(ap, wchar_t *);
+			s = !w ? ft_strdup("(null)") : NULL;
+		}
+		else
+		{
+			s = va_arg(ap, char *);
+			s = !s ? ft_strdup("(null)") : ft_strdup(s);
+		}	
 	}
-	else if (mod.s == 's' || mod.s == 'S')
+	else if (mod.s == 's')
 	{
 		s = va_arg(ap, char *);
 		s = !s ? ft_strdup("(null)") : ft_strdup(s);
