@@ -20,7 +20,6 @@
 # define TYPE_INT "diouxXDOUp"
 # define TYPE_PTR "n"
 # define TYPE_CHR "cCsS"
-//# define TYPE_PER_CENT "%"
 # define TYPE_DBL "aAeEfFgG"
 
 typedef struct		s_m
@@ -45,8 +44,8 @@ typedef struct		s_f
 	int		ap;
 	int		width;
 	int		prc;
-	int		star_w;
-	int		star_prc;
+	int		star_w;//
+	int		star_prc;//
 	int		dol_w;
 	int		dol_prc;
 	int		n;
@@ -69,9 +68,9 @@ int					dollar_value(char *str);
 int					zero_flag(char *fmt);
 int					width_value(char *fmt);
 int					prc_value(char *fmt);
-int					star_width(char *fmt);
-int					star_precision(char *fmt);
-int					star_value(int dollar, va_list ap, va_list cp);
+int					star_width(char *fmt);//del
+int					star_precision(char *fmt);//del
+int					star_value(int dollar, va_list ap, va_list cp);//del
 int					star_value_width(int dollar, int *minus, va_list ap,
 					va_list cp);
 int					star_value_precision(int dollar, va_list ap, va_list cp);
@@ -95,7 +94,7 @@ void				apostrophe(char **str, int n);
 int					count_sep(unsigned long long num);
 char				*str_ap(char *s, char sep, int n);
 unsigned long long	u_num(long long num);
-void				precision_num(char **str, int prc, unsigned long long num);//new
+void				precision_num(char **str, int prc, unsigned long long num);
 void				sign_num(char **str, int sign, t_flags flag);
 void				width_num(char **str, t_flags flag, t_size mod);
 char				*minus_zero_num(char *str, int len, t_flags flag,
@@ -103,7 +102,7 @@ char				*minus_zero_num(char *str, int len, t_flags flag,
 void				minus_num(char **str, t_flags flag);
 void				sp_num(char **str, t_flags flag);
 void				plus_num(char **str, t_flags flag);
-void				hash_num(char **str, t_size mod, t_flags flag);//new
+void				hash_num(char **str, t_size mod, t_flags flag);
 void				make_toupper(char **str);
 void				arg_ptr(t_size mod, t_flags flag, va_list ap, va_list cp);
 long long			*arg_n(t_size mod, int dollar, va_list ap, va_list cp);
@@ -117,7 +116,9 @@ char				*make_str_wchr(wchar_t *w, t_size mod);
 char				*ft_unicode(wchar_t c, char **str);
 void				precision_chr(char **str, int prc);
 char				*ft_strjoin_leaks(char **s1, char **s2);
-int					arg_per_cent(t_flags flag, t_size mod, int c);
-int					star(char *fmt, t_flags *flag, va_list ap, va_list cp);//new
+int					nonvalid(t_flags flag, t_size mod, int c);
+int					star(char *fmt, t_flags *flag, va_list ap, va_list cp);
+char				*conv_chr_c(t_size mod, va_list ap);
+char				*conv_chr_s(t_size mod, va_list ap);
 
 #endif

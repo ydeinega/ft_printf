@@ -42,8 +42,19 @@ char	*conv_chr_dol(t_size mod, int dollar, va_list cp)
 	return (s);
 }
 
-//NORM
 char	*conv_chr(t_size mod, va_list ap)
+{
+	char	*s;
+
+	s = NULL;
+	if (mod.s == 's' || mod.s == 'S')
+		s = conv_chr_s(mod, ap);
+	else
+		s = conv_chr_c(mod, ap);
+	return (s);
+}
+
+char	*conv_chr_c(t_size mod, va_list ap)
 {
 	char	*s;
 	wchar_t	*w;
@@ -53,24 +64,28 @@ char	*conv_chr(t_size mod, va_list ap)
 	s = NULL;
 	w = NULL;
 	nbyte = MB_CUR_MAX;
-	if (mod.s == 'C' || (mod.s == 'c' && mod.l))
+	if ((mod.s == 'C' || (mod.s == 'c' && mod.l)) && nbyte > 1)
 	{
-		if (nbyte > 1)
-		{
-			c = (wchar_t)va_arg(ap, wint_t);
-			w = &c;
-		}
-		else
-		{
-			s = ft_strnew(1);
-			s[0] = (char)va_arg(ap, int);
-		}
+		c = (wchar_t)va_arg(ap, wint_t);
+		w = &c;
 	}
-	else if (mod.s == 'c')
+	else
 	{
 		s = ft_strnew(1);
 		s[0] = (char)va_arg(ap, int);
 	}
+	if (w && !s)
+		s = make_str_wchr(w, mod);
+	return (s);
+}
+
+char	*conv_chr_s(t_size mod, va_list ap)
+{
+	char	*s;
+	wchar_t	*w;
+
+	s = NULL;
+	w = NULL;
 	if (mod.s == 'S' || (mod.s == 's' && mod.l))
 	{
 		w = va_arg(ap, wchar_t *);
@@ -83,113 +98,5 @@ char	*conv_chr(t_size mod, va_list ap)
 	}
 	if (w && !s)
 		s = make_str_wchr(w, mod);
-	return (s);
-}
-
-/*
-char	*conv_chr(t_size mod, va_list ap)
-{
-	char	*s;
-	wchar_t	*w;
-	wchar_t	c;
-	int		nbyte;
-
-	s = NULL;
-	w = NULL;
-	nbyte = MB_CUR_MAX;
-	if (mod.s == 'C' || (mod.s == 'c' && mod.l))
-	{
-		if (nbyte > 1)
-		{
-			c = (wchar_t)va_arg(ap, wint_t);
-			w = &c;
-		}
-		else
-		{
-			s = ft_strnew(1);
-			s[0] = (char)va_arg(ap, int);
-		}
-	}
-	else if (mod.s == 'c')
-	{
-		s = ft_strnew(1);
-		s[0] = (char)va_arg(ap, int);
-	}
-	if (mod.s == 'S' || (mod.s == 's' && mod.l))
-	{
-		if (nbyte > 1)
-		{
-			w = va_arg(ap, wchar_t *);
-			s = !w ? ft_strdup("(null)") : NULL;
-		}
-		else
-		{
-			s = va_arg(ap, char *);
-			s = !s ? ft_strdup("(null)") : ft_strdup(s);
-		}	
-	}
-	else if (mod.s == 's')
-	{
-		s = va_arg(ap, char *);
-		s = !s ? ft_strdup("(null)") : ft_strdup(s);
-	}
-	if (w && !s)
-		s = make_str_wchr(w, mod);
-	return (s);
-}
-*/
-char	*make_str_wchr(wchar_t *w, t_size mod)
-{
-	char	*str;
-	char	*tmp;
-	int		i;
-
-	str = ft_strnew(5);
-	tmp = NULL;
-	i = 0;
-	if (mod.s == 'C' || mod.s == 'c')
-		str = ft_unicode(*w, &str);
-	else
-	{
-		while (w[i])
-		{
-			if (!str)
-				str = ft_unicode(w[i], &str);
-			else
-			{
-				tmp = ft_unicode(w[i], &tmp);
-				str = ft_strjoin_leaks(&str, &tmp);
-			}
-			i++;
-		}
-	}
-	return (str);
-}
-
-char	*ft_unicode(wchar_t c, char **str)
-{
-	char	*s;
-
-	s = *str ? *str : ft_strnew(5);
-	if (c < (1 << 7))
-		s[0] = (char)c;
-	else if (c < (1 << 11))
-	{
-		s[0] = (char)(192 | (c >> 6));
-		s[1] = (char)(128 | (c & 63));
-	}
-	else if (c < (1 << 16))
-	{
-		s[0] = (char)(224 | (c >> 12));
-		s[1] = (char)(128 | ((c >> 6) & 63));
-		s[2] = (char)(128 | ((c & 63)));
-	}
-	else
-	{
-		s[0] = (char)(240 | (c >> 18));
-		s[1] = (char)(128 | ((c >> 12) & 63));
-		s[2] = (char)(128 | ((c >> 6) & 63));
-		s[3] = (char)(128 | (c & 63));
-	}
 	return (s);
 }

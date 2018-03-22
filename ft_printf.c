@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include <stdio.h> //DEL
 
 int		ft_printf(const char *format, ...)
 {
@@ -57,37 +56,6 @@ int		print_format(const char *format, int n, va_list ap, va_list cp)
 	return (n);
 }
 
-/*
-int		print_format(const char *format, int n, va_list ap, va_list cp)
-{
-	int		i;
-	char	*s;
-	char	*tmp;
-
-	i = 0;
-	s = ft_strdup(format);
-	while (s[i])
-	{
-		if (s[i] != '%' || (s[i] == '%' && s[i + 1] == '%'))
-		{
-			ft_putchar(s[i]);
-			n++;
-			i = (s[i] == '%') ? i + 2 : i + 1;
-		}
-		else
-		{
-			tmp = s;
-			s = &s[i];
-			n = n + parsing(&s, n, ap, cp);
-			i = 0;
-			ft_strdel(&tmp);
-		}
-	}
-	ft_strdel(&s);
-	return (n);
-}
-*/
-
 int		parsing(char **str, int n, va_list ap, va_list cp)
 {
 	char	*fmt;
@@ -99,7 +67,6 @@ int		parsing(char **str, int n, va_list ap, va_list cp)
 	ret = 0;
 	fmt = NULL;
 	b_type = extract_fmt(str, &fmt);
-	//printf("%s\n", fmt);//DEL
 	if (fmt)
 	{
 		mod = parse_modifiers(fmt, b_type);
@@ -113,7 +80,7 @@ int		parsing(char **str, int n, va_list ap, va_list cp)
 	else if (b_type == 3)
 		ret = arg_char(mod, flag, ap, cp);
 	else
-		ret = arg_per_cent(flag, mod, b_type);
+		ret = nonvalid(flag, mod, b_type);
 	return (ret);
 }
 

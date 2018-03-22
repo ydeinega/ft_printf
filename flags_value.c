@@ -111,8 +111,6 @@ int		star(char *fmt, t_flags *flag, va_list ap, va_list cp)
 		}
 		i++;
 	}
-	//printf("width = %d\n", flag->width);//DEl
-	//printf("prc = %d\n", flag->prc);//DEL
 	return (0);
 }
 

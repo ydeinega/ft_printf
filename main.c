@@ -159,11 +159,16 @@ int main(void)
 	// b = ft_printf("{%05p}\n", 0);
 	// printf("a = %d, b = %d\n", a, b);
 
-	//#define NONVALID
+	#define NONVALID
 	#ifdef NONVALID
 	printf("\n");
 	a = printf("{%10R}\n");
 	b = ft_printf("{%10R}\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("\n");
+	a = printf("{%10%}\n");
+	b = ft_printf("{%10%}\n");
 	printf("a = %d, b = %d\n", a, b);
 
 	printf("\n");
@@ -172,8 +177,13 @@ int main(void)
 	printf("a = %d, b = %d\n", a, b);
 
 	printf("\n");
+	a = printf("{%-15%}\n", 123);
+	b = ft_printf("{%-15%}\n", 123);
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("\n");
 	a = printf("{%05.Z}\n", 0);
-	b = ft_printf("{%05.Znn}\n", 0);
+	b = ft_printf("{%05.Z}\n", 0);
 	printf("a = %d, b = %d\n", a, b);
 
 
@@ -352,7 +362,7 @@ int main(void)
 	printf("a = %d, b = %d\n", a, b);
 	#endif
 
-	#define BONUS
+	//#define BONUS
 	#ifdef BONUS
 
 	printf("\n");
@@ -361,8 +371,8 @@ int main(void)
 	printf("a = %d, b = %d\n", a, b);
 
 	printf("\n");
-	a = printf("{%3*5d}\n", 10, 2);
-	b = ft_printf("{%3*5d}\n", 10, 2);
+	a = printf("{%3*5d}\n", -10, 2);
+	b = ft_printf("{%3*5d}\n", -10, 2);
 	printf("a = %d, b = %d\n", a, b);
 
 	printf("\n");
