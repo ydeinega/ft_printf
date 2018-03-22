@@ -73,6 +73,50 @@ char	*conv_chr(t_size mod, va_list ap)
 	}
 	if (mod.s == 'S' || (mod.s == 's' && mod.l))
 	{
+		w = va_arg(ap, wchar_t *);
+		s = !w ? ft_strdup("(null)") : NULL;
+	}
+	else if (mod.s == 's')
+	{
+		s = va_arg(ap, char *);
+		s = !s ? ft_strdup("(null)") : ft_strdup(s);
+	}
+	if (w && !s)
+		s = make_str_wchr(w, mod);
+	return (s);
+}
+
+/*
+char	*conv_chr(t_size mod, va_list ap)
+{
+	char	*s;
+	wchar_t	*w;
+	wchar_t	c;
+	int		nbyte;
+
+	s = NULL;
+	w = NULL;
+	nbyte = MB_CUR_MAX;
+	if (mod.s == 'C' || (mod.s == 'c' && mod.l))
+	{
+		if (nbyte > 1)
+		{
+			c = (wchar_t)va_arg(ap, wint_t);
+			w = &c;
+		}
+		else
+		{
+			s = ft_strnew(1);
+			s[0] = (char)va_arg(ap, int);
+		}
+	}
+	else if (mod.s == 'c')
+	{
+		s = ft_strnew(1);
+		s[0] = (char)va_arg(ap, int);
+	}
+	if (mod.s == 'S' || (mod.s == 's' && mod.l))
+	{
 		if (nbyte > 1)
 		{
 			w = va_arg(ap, wchar_t *);
@@ -93,7 +137,7 @@ char	*conv_chr(t_size mod, va_list ap)
 		s = make_str_wchr(w, mod);
 	return (s);
 }
-
+*/
 char	*make_str_wchr(wchar_t *w, t_size mod)
 {
 	char	*str;
