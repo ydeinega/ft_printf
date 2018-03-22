@@ -37,7 +37,7 @@
 //Test switchers - comment some of then to turn the tests off
 //#define	CHAR		//aka chars
 // #define	PER			//aka percent(%)
- #define	NUM			//aka numbers
+// #define	NUM			//aka numbers
 // #define	PTR			//aka pointers
 // #define	STRANGE		//aka undefined tests
 // #define STR			//aka strings

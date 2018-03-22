@@ -114,7 +114,7 @@ char				*conv_char(t_size mod, int dollar, va_list ap, va_list cp);
 char				*conv_chr_dol(t_size mod, int dollar, va_list cp);
 char				*conv_chr(t_size mod, va_list ap);
 char				*make_str_wchr(wchar_t *w, t_size mod);
-char				*ft_unicode(wchar_t c);
+char				*ft_unicode(wchar_t c, char **str);
 void				precision_chr(char **str, int prc);
 char				*ft_strjoin_leaks(char **s1, char **s2);
 int					arg_per_cent(t_flags flag, t_size mod, int c);

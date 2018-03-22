@@ -82,19 +82,20 @@ char	*make_str_wchr(wchar_t *w, t_size mod)
 	char	*tmp;
 	int		i;
 
-	str = NULL;
+	str = ft_strnew(5);
+	tmp = NULL;
 	i = 0;
 	if (mod.s == 'C' || mod.s == 'c')
-		str = ft_unicode(*w);
+		str = ft_unicode(*w, &str);
 	else
 	{
 		while (w[i])
 		{
 			if (!str)
-				str = ft_unicode(w[i]);
+				str = ft_unicode(w[i], &str);
 			else
 			{
-				tmp = ft_unicode(w[i]);
+				tmp = ft_unicode(w[i], &tmp);
 				str = ft_strjoin_leaks(&str, &tmp);
 			}
 			i++;
@@ -103,11 +104,11 @@ char	*make_str_wchr(wchar_t *w, t_size mod)
 	return (str);
 }
 
-char	*ft_unicode(wchar_t c)
+char	*ft_unicode(wchar_t c, char **str)
 {
 	char	*s;
 
-	s = ft_strnew(5);
+	s = *str ? *str : ft_strnew(5);
 	if (c < (1 << 7))
 		s[0] = (char)c;
 	else if (c < (1 << 11))

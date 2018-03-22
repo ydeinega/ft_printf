@@ -318,4 +318,24 @@ int main(void)
 
 	#endif
 
+	#define STR
+	#ifdef STR
+	setlocale(LC_ALL, "");
+	printf("\n");
+	a = printf("|%7.3S|\n", L"");
+	b = ft_printf("|%7.3S|\n", L"");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("\n");
+	a = printf("|%7.3s|\n", "");
+	b = ft_printf("|%7.3s|\n", "");
+	printf("a = %d, b = %d\n", a, b);
+
+	const wchar_t B[] = L"ድመቶች ሰዎች አልወደውም.";
+	printf("\n");
+	a = printf("|%5.3S|\t\t|%3.5S|\t|%7S|\t|%7.3S|\n",B, B,B,L"");
+	b = ft_printf("|%5.3S|\t\t|%3.5S|\t|%7S|\t|%7.3S|\n",B, B,B,L"");
+	printf("a = %d, b = %d\n", a, b);
+	#endif
+
 }
