@@ -71,7 +71,7 @@ char	*conv_chr(t_size mod, va_list ap)
 		s = ft_strnew(1);
 		s[0] = (char)va_arg(ap, int);
 	}
-	if ((mod.s == 'S' || (mod.s == 's' && mod.l)) && nbyte > 1)
+	if (mod.s == 'S' || (mod.s == 's' && mod.l))
 	{
 		if (nbyte > 1)
 		{
