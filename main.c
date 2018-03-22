@@ -1,5 +1,6 @@
 #include "libftprintf.h"
 #include <stdio.h>
+#include <locale.h>
 
 int main(void)
 {
@@ -130,6 +131,8 @@ int main(void)
 	// b = ft_printf("%s\n", "hello");
 	// printf("a = %d, b = %d\n", a, b);
 
+	//#define CTEST
+	#ifdef CTEST
 	a = printf("{%*c}\n", -15, 0);
 	b = ft_printf("{%*c}\n", -15, 0);
 	printf("a = %d, b = %d\n", a, b);
@@ -141,6 +144,7 @@ int main(void)
 	a = printf("{%*3d}\n", 0, 0);
 	b = ft_printf("{%*3d}\n", 0, 0);
 	printf("a = %d, b = %d\n", a, b);
+	#endif
 
 
 	//CONV p
@@ -155,8 +159,8 @@ int main(void)
 	// b = ft_printf("{%05p}\n", 0);
 	// printf("a = %d, b = %d\n", a, b);
 
-	//nonvalid
-
+	//#define NONVALID
+	#ifdef NONVALID
 	printf("\n");
 	a = printf("{%10R}\n");
 	b = ft_printf("{%10R}\n");
@@ -177,13 +181,106 @@ int main(void)
 	a = printf("{%.5Z}\n", 0);
 	b = ft_printf("{%.5Z}\n", 0);
 	printf("a = %d, b = %d\n", a, b);
+	#endif
 
-	#define OTHER
+	//#define OTHER
 	#ifdef OTHER
+	setlocale(LC_ALL, "");
 	printf("\n");
 	a = printf("|%-2.0c|\n", 'a');
 	b = ft_printf("|%-2.0c|\n", 'a');
 	printf("a = %d, b = %d\n", a, b);
+
+	printf("\n");
+	a = printf("|%.0c|\n", 'a');
+	b = ft_printf("|%.0c|\n", 'a');
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("\n");
+	a = printf("|%.0C|\n", L'Ю');
+	b = ft_printf("|%.0C|\n", L'Ю');
+	printf("a = %d, b = %d\n", a, b);
+	#endif
+
+	#define ASCII
+	#ifdef ASCII
+	//setlocale(LC_ALL, "");
+	printf("sp\n");
+	a = printf("|%5 |\n");
+	b = ft_printf("|%5 |\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("!\n");
+	a = printf("|%5!|\n");
+	b = ft_printf("|%5!|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("\"\n");
+	a = printf("|%5\"|\n");
+	b = ft_printf("|%5\"|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("#\n");
+	a = printf("|%5#|\n");
+	b = ft_printf("|%5#|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("$\n");
+	a = printf("|%5$|\n");
+	b = ft_printf("|%5$|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("%%\n");
+	a = printf("|%5%|\n");
+	b = ft_printf("|%5%|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("&\n");
+	a = printf("|%5&|\n");
+	b = ft_printf("|%5&|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf(",\n");//не выводит
+	a = printf("|%5,|\n");
+	b = ft_printf("|%5,|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("(\n");
+	a = printf("|%5(|\n");
+	b = ft_printf("|%5(|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("(\n");//не выводит
+	a = printf("|%5:|\n");
+	b = ft_printf("|%5:|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("(\n");//не выводит
+	a = printf("|%5;|\n");
+	b = ft_printf("|%5;|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("(\n");//выводит
+	a = printf("|%5?|\n");
+	b = ft_printf("|%5?|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("(\n");//не выводит
+	a = printf("|%5_|\n");
+	b = ft_printf("|%5_|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("(\n");//выводит
+	a = printf("|%05]|\n");
+	b = ft_printf("|%05]|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("(\n");//выводит
+	a = printf("|%5Ю|\n");
+	b = ft_printf("|%5Ю|\n");
+	printf("a = %d, b = %d\n", a, b);
+
+	// , ; : _
 	#endif
 
 	

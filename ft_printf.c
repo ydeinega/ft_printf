@@ -102,18 +102,18 @@ int		parsing(char **str, int n, va_list ap, va_list cp)
 	//printf("%s\n", fmt);//DEL
 	if (fmt)
 	{
-		mod = parse_modifiers(fmt);
+		mod = parse_modifiers(fmt, b_type);
 		flag = parse_flags(fmt, ap, cp, n);
 		ft_strdel(&fmt);
 	}
 	if (b_type == 1)
 		ret = arg_num(mod, flag, ap, cp);
-	if (b_type == 2)
+	else if (b_type == 2)
 		arg_ptr(mod, flag, ap, cp);
-	if (b_type == 3)
+	else if (b_type == 3)
 		ret = arg_char(mod, flag, ap, cp);
-	if (b_type == 4)
-		ret = arg_per_cent(flag, mod);
+	else
+		ret = arg_per_cent(flag, mod, b_type);
 	return (ret);
 }
 
@@ -150,10 +150,8 @@ int		basic_type(char c)
 		return (2);
 	else if (ft_strchr(TYPE_CHR, c))
 		return (3);
-	else if (ft_strchr(TYPE_PER_CENT, c))
-		return (4);
 	else if (ft_strchr(TYPE_DBL, c))
-		return (5);
+		return (4);
 	else
-		return (-1);
+		return ((int)c);
 }

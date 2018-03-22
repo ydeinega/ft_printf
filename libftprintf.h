@@ -20,7 +20,7 @@
 # define TYPE_INT "diouxXDOUp"
 # define TYPE_PTR "n"
 # define TYPE_CHR "cCsS"
-# define TYPE_PER_CENT "%"
+//# define TYPE_PER_CENT "%"
 # define TYPE_DBL "aAeEfFgG"
 
 typedef struct		s_m
@@ -59,7 +59,7 @@ int					parsing(char **str, int n, va_list ap, va_list cp);
 int					extract_fmt(char **str, char **fmt);
 int					basic_type(char c);
 int					arg_num(t_size mod, t_flags flag, va_list ap, va_list cp);
-t_size				parse_modifiers(char *fmt);
+t_size				parse_modifiers(char *fmt, int b_type);
 t_flags				parse_flags(char *fmt, va_list ap, va_list cp, int n);
 int					count_char(char *str, char c);
 int					dollar_arg(char *fmt);
@@ -117,6 +117,6 @@ char				*make_str_wchr(wchar_t *w, t_size mod);
 char				*ft_unicode(wchar_t c);
 void				precision_chr(char **str, int prc);
 char				*ft_strjoin_leaks(char **s1, char **s2);
-int					arg_per_cent(t_flags flag, t_size mod);
+int					arg_per_cent(t_flags flag, t_size mod, int c);
 
 #endif

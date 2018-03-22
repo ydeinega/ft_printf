@@ -47,8 +47,8 @@ char	*minus_zero_num(char *str, int len, t_flags flag, t_size mod)
 	{
 		if ((flag.zero && flag.prc == -1 && ft_strchr(TYPE_INT, mod.s)) ||
 			(flag.zero && ft_strchr(TYPE_CHR, mod.s)) ||
-			(flag.zero && ft_strchr(TYPE_PER_CENT, mod.s)))
-			s_new = ft_memset(s_new, '0', flag.width - len);
+			(flag.zero && !ft_strchr(TYPE_CHR, mod.s) && !ft_strchr(TYPE_INT, mod.s)))//переделать кусок. может b_type в мод загнать
+			s_new = ft_memset(s_new, '0', flag.width - len);//и каждый раз не вайлить. Это тупо!
 		else
 			s_new = ft_memset(s_new, ' ', flag.width - len);
 	}

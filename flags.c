@@ -12,12 +12,12 @@
 
 #include "libftprintf.h"
 
-t_size	parse_modifiers(char *fmt)
+t_size	parse_modifiers(char *fmt, int b_type)
 {
 	t_size	mod;
 	int		tmp;
 
-	mod.s = specifier(fmt);
+	mod.s = specifier(fmt) == '0' ? (char)b_type : specifier(fmt);//переписать
 	tmp = count_char(fmt, 'h');
 	mod.hh = (tmp > 0 && tmp % 2 == 0) ? 1 : 0;
 	mod.h = (tmp > 0 && tmp % 2 != 0) ? 1 : 0;
@@ -72,7 +72,7 @@ int		count_char(char *str, char c)
 	return (n);
 }
 
-char	specifier(char *fmt)
+char	specifier(char *fmt)//переписать
 {
 	if (ft_strchr(fmt, 'd') || ft_strchr(fmt, 'i'))
 		return ('d');
@@ -124,7 +124,6 @@ char	specifier_rest(char *fmt)
 		return ('G');
 	else if (ft_strchr(fmt, 'g'))
 		return ('g');
-	else if (ft_strchr(fmt, '%'))
-		return ('%');
-	return ('0');
+	else
+		return ('0');
 }

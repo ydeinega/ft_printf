@@ -25,7 +25,7 @@ int		arg_char(t_size mod, t_flags flag, va_list ap, va_list cp)
 	if (ft_strlen(s) == 0 && (mod.s == 'c' || mod.s == 'C'))
 		n++;
 	if (flag.prc != -1)
-		precision_chr(&s, flag.prc);
+		(flag.prc == 0 && (mod.s == 'c' || mod.s == 'C')) ? 0 : precision_chr(&s, flag.prc);
 	if (flag.width)
 		width_num(&s, flag, mod);
 	n = n + ft_strlen(s);
