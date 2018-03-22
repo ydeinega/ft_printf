@@ -202,7 +202,7 @@ int main(void)
 	printf("a = %d, b = %d\n", a, b);
 	#endif
 
-	#define ASCII
+	//#define ASCII
 	#ifdef ASCII
 	//setlocale(LC_ALL, "");
 	printf("sp\n");
@@ -283,7 +283,39 @@ int main(void)
 	// , ; : _
 	#endif
 
+	//#define I_TEST
+	#ifdef I_TEST
 	
+	printf("\n");
+	a = printf("|%-15.-10i|\n", 42);
+	b = ft_printf("|%-15.-10i|\n", 42);
+	printf("a = %d, b = %d\n", a, b);
 
+	printf("\n");
+	a = printf("|%15.-10i|\n", 42);
+	b = ft_printf("|%15.-10i|\n", 42);
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("\n");
+	a = printf("|%15.-10.-5i|\n", 42);
+	b = ft_printf("|%15.-10.-5i|\n", 42);
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("\n");
+	a = printf("|%10.8.12.6-i|\n", 42);
+	b = ft_printf("|%10.8.12.6-i|\n", 42);
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("\n");
+	a = printf("|%4.15s|\n", "42");
+	b = ft_printf("|%4.15s|\n", "42");
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("\n");
+	a = printf("|%10.6-i|\n", 42);
+	b = ft_printf("|%10.6-i|\n", 42);
+	printf("a = %d, b = %d\n", a, b);
+
+	#endif
 
 }

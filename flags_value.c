@@ -29,38 +29,44 @@ int		zero_flag(char *fmt)
 	return (0);
 }
 
+
 int		width_value(char *fmt)
 {
 	int i;
 	int	start;
+	int	ret;
 
 	i = 0;
-	start = 0;
+	ret = 0;
 	while (fmt[i])
 	{
+		if (fmt[i] == '.')
+		{
+			i++;
+			while (ft_isdigit(fmt[i]))
+				i++;
+		}
 		if (ft_isdigit(fmt[i]) && fmt[i] != '0')
 		{
-			if (i == 0 || (i > 0 && fmt[i - 1] != '.' && fmt[i - 1] != '*'))
-			{
-				start = i;
-				while (ft_isdigit(fmt[i]))
-					i++;
-				if (fmt[i] != '$')
-					return (ft_atoi(&fmt[start]));
-			}
+			start = i;
+			while (ft_isdigit(fmt[i]))
+				i++;
+			ret = (fmt[i] != '$') ? ft_atoi(&fmt[start]) : ret;
 		}
-		i++;
+		else
+			i = fmt[i] == '.' ? i : i + 1;
 	}
-	return (0);
+	return (ret);
 }
 
 int		prc_value(char *fmt)
 {
 	int i;
 	int	start;
+	int ret;
 
 	i = 0;
-	start = 0;
+	ret = -1;
 	while (fmt[i])
 	{
 		if (fmt[i] == '.')
@@ -71,14 +77,15 @@ int		prc_value(char *fmt)
 				start = i;
 				while (ft_isdigit(fmt[i]))
 					i++;
-				return (fmt[i] != '$' ? ft_atoi(&fmt[start]) : 0);
+				ret = fmt[i] != '$' ? ft_atoi(&fmt[start]) : 0;
 			}
 			else
-				return (0);
+				ret = 0;
 		}
-		i++;
+		else
+			i++;
 	}
-	return (-1);
+	return (ret);
 }
 
 int		star_width(char *fmt)
