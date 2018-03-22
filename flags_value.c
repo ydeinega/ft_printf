@@ -88,6 +88,35 @@ int		prc_value(char *fmt)
 	return (ret);
 }
 
+//new
+int		star(char *fmt, t_flags *flag, va_list ap, va_list cp)
+{
+	int		i;
+	int		tmp;
+
+	i = 0;
+	while (fmt[i])
+	{
+		if (fmt[i] == '*' && (i == 0 || (i > 0 && fmt[i - 1] != '.')))
+		{
+			tmp = star_value_width(flag->dol_w, &flag->minus, ap, cp);
+			if (!width_value(&fmt[i]))
+				flag->width = tmp;
+		}
+		if (fmt[i] == '*' && i > 0 && fmt[i - 1] == '.')
+		{
+			tmp = star_value_precision(flag->dol_prc, ap, cp);
+			if (prc_value(&fmt[i]) == -1)
+				flag->prc = tmp;
+		}
+		i++;
+	}
+	//printf("width = %d\n", flag->width);//DEl
+	//printf("prc = %d\n", flag->prc);//DEL
+	return (0);
+}
+
+/*
 int		star_width(char *fmt)
 {
 	int i;
@@ -115,3 +144,4 @@ int		star_precision(char *fmt)
 	}
 	return (0);
 }
+*/

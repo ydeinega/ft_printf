@@ -318,33 +318,57 @@ int main(void)
 
 	#endif
 
-	#define STR
+	//#define STR
 	#ifdef STR
 
 	printf("MB = %d\n", MB_CUR_MAX);
+	printf("\n");
 	a = printf("%C\n", L'狼');
 	b = ft_printf("%C\n", L'狼');
+	printf("a = %d, b = %d\n", a, b);
+	printf("\n");
+	a = printf("%S\n", L"狼");
+	b = ft_printf("%S\n", L"狼");
 	printf("a = %d, b = %d\n", a, b);
 	setlocale(LC_ALL, "");
 	printf("MB = %d\n", MB_CUR_MAX);
 	a = printf("%C\n", L'狼');
 	b = ft_printf("%C\n", L'狼');
 	printf("a = %d, b = %d\n", a, b);
-	// printf("\n");
-	// a = printf("|%7.3S|\n", L"");
-	// b = ft_printf("|%7.3S|\n", L"");
-	// printf("a = %d, b = %d\n", a, b);
+	printf("\n");
+	a = printf("|%7.3S|\n", L"");
+	b = ft_printf("|%7.3S|\n", L"");
+	printf("a = %d, b = %d\n", a, b);
 
-	// printf("\n");
-	// a = printf("|%7.3s|\n", "");
-	// b = ft_printf("|%7.3s|\n", "");
-	// printf("a = %d, b = %d\n", a, b);
+	printf("\n");
+	a = printf("|%7.3s|\n", "");
+	b = ft_printf("|%7.3s|\n", "");
+	printf("a = %d, b = %d\n", a, b);
 
-	// const wchar_t B[] = L"ድመቶች ሰዎች አልወደውም.";
-	// printf("\n");
-	// a = printf("|%5.3S|\t\t|%3.5S|\t|%7S|\t|%7.3S|\n",B, B,B,L"");
-	// b = ft_printf("|%5.3S|\t\t|%3.5S|\t|%7S|\t|%7.3S|\n",B, B,B,L"");
-	// printf("a = %d, b = %d\n", a, b);
+	const wchar_t B[] = L"ድመቶች ሰዎች አልወደውም.";
+	printf("\n");
+	a = printf("|%5.3S|\t\t|%3.5S|\t|%7S|\t|%7.3S|\n",B, B,B,L"");
+	b = ft_printf("|%5.3S|\t\t|%3.5S|\t|%7S|\t|%7.3S|\n",B, B,B,L"");
+	printf("a = %d, b = %d\n", a, b);
+	#endif
+
+	#define BONUS
+	#ifdef BONUS
+
+	printf("\n");
+	a = printf("{%*3d}\n", 10, 2);
+	b = ft_printf("{%*3d}\n", 10, 2);
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("\n");
+	a = printf("{%3*5d}\n", 10, 2);
+	b = ft_printf("{%3*5d}\n", 10, 2);
+	printf("a = %d, b = %d\n", a, b);
+
+	printf("\n");
+	a = printf("{%*c}\n", -15, 0);
+	b = ft_printf("{%*c}\n", -15, 0);
+	printf("a = %d, b = %d\n", a, b);
 	#endif
 
 }

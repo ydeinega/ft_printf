@@ -118,5 +118,6 @@ char				*ft_unicode(wchar_t c, char **str);
 void				precision_chr(char **str, int prc);
 char				*ft_strjoin_leaks(char **s1, char **s2);
 int					arg_per_cent(t_flags flag, t_size mod, int c);
+int					star(char *fmt, t_flags *flag, va_list ap, va_list cp);//new
 
 #endif

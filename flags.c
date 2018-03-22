@@ -42,14 +42,17 @@ t_flags	parse_flags(char *fmt, va_list ap, va_list cp, int n)
 	flag.ap = ft_strchr(fmt, '\'') ? 1 : 0;
 	flag.width = width_value(fmt);
 	flag.prc = prc_value(fmt);
-	flag.star_w = star_width(fmt);
-	flag.star_prc = star_precision(fmt);
+	// flag.star_w = star_width(fmt);
+	// flag.star_prc = star_precision(fmt);
 	flag.dol_w = dollar_width(fmt);
 	flag.dol_prc = dollar_precision(fmt);
-	if (flag.star_w)
-		flag.width = star_value_width(flag.dol_w, &flag.minus, ap, cp);
-	if (flag.star_prc)
-		flag.prc = star_value_precision(flag.dol_prc, ap, cp);
+	star(fmt, &flag, ap, cp);
+	// if (flag.star_w)
+	// 	flag.width = star_value_width(flag.dol_w, &flag.minus, ap, cp);
+	// if (flag.star_prc)
+	// 	flag.prc = star_value_precision(flag.dol_prc, ap, cp);
+	//printf("width = %d\n", flag.width);//DEl
+	//printf("prc = %d\n", flag.prc);//DEL
 	flag.n = n;
 	return (flag);
 }
