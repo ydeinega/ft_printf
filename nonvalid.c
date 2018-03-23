@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-int		nonvalid(t_flags flag, t_size mod, int c)
+int		nonvalid(t_flags flag, t_size mod)
 {
 	char	*str;
 	int		n;
@@ -21,7 +21,7 @@ int		nonvalid(t_flags flag, t_size mod, int c)
 	n = 0;
 	if (!str)
 		return (0);
-	str[0] = (char)c;
+	str[0] = mod.s;
 	if (flag.width)
 		width_num(&str, flag, mod);
 	if (!str)

@@ -52,8 +52,8 @@ char	*make_str_unum(t_size mod, t_flags flag, unsigned long long num)
 		precision_num(&str, flag.prc, num);
 	if (flag.width && flag.zero && flag.prc == -1 && !flag.minus)
 		width_num(&str, flag, mod);
-	if (mod.s == 'p' || ((num > 0 && (flag.hash && (mod.s == 'x' || mod.s == 'X'))))
-		|| (flag.hash && (mod.s == 'o' || mod.s == 'O')))
+	if (mod.s == 'p' || ((num > 0 && (flag.hash && (mod.s == 'x'
+		|| mod.s == 'X')))) || (flag.hash && (mod.s == 'o' || mod.s == 'O')))
 		hash_num(&str, mod, flag);
 	if (flag.width)
 		width_num(&str, flag, mod);
@@ -76,7 +76,7 @@ void	make_toupper(char **str)
 	}
 }
 
-void	hash_num(char **str, t_size mod, t_flags flag)//new
+void	hash_num(char **str, t_size mod, t_flags flag)
 {
 	char	*s;
 
@@ -102,7 +102,6 @@ void	hash_num(char **str, t_size mod, t_flags flag)//new
 		ft_strdel(&s);
 }
 
-//NORM
 void	precision_num(char **str, int prc, unsigned long long num)
 {
 	char	*s;
@@ -111,11 +110,9 @@ void	precision_num(char **str, int prc, unsigned long long num)
 	int		i;
 
 	s = *str;
-	s_new = NULL;
+	s_new = (!prc && !num) ? ft_strdup("") : NULL;
 	len = ft_strlen(s);
 	i = 0;
-	if (prc == 0 && num == 0)
-		s_new = ft_strdup("");
 	if (prc > len)
 	{
 		s_new = ft_strnew(prc);

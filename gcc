@@ -1,1 +1,0 @@
-gcc printf_main2.c -Wno-format-invalid-specifier -Wno-format -Wno-macro-redefined -Wno-implicitly-unsigned-literal -L. -lftprintf

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags_value.c                                      :+:      :+:    :+:   */
+/*   zero_width_prc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ydeineha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/02 21:09:51 by ydeineha          #+#    #+#             */
-/*   Updated: 2018/02/02 21:10:08 by ydeineha         ###   ########.fr       */
+/*   Created: 2018/03/23 17:49:40 by ydeineha          #+#    #+#             */
+/*   Updated: 2018/03/23 17:49:42 by ydeineha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int		zero_flag(char *fmt)
 	}
 	return (0);
 }
-
 
 int		width_value(char *fmt)
 {
@@ -87,59 +86,3 @@ int		prc_value(char *fmt)
 	}
 	return (ret);
 }
-
-//new
-int		star(char *fmt, t_flags *flag, va_list ap, va_list cp)
-{
-	int		i;
-	int		tmp;
-
-	i = 0;
-	while (fmt[i])
-	{
-		if (fmt[i] == '*' && (i == 0 || (i > 0 && fmt[i - 1] != '.')))
-		{
-			tmp = star_value_width(flag->dol_w, &flag->minus, ap, cp);
-			if (!width_value(&fmt[i]))
-				flag->width = tmp;
-		}
-		if (fmt[i] == '*' && i > 0 && fmt[i - 1] == '.')
-		{
-			tmp = star_value_precision(flag->dol_prc, ap, cp);
-			if (prc_value(&fmt[i]) == -1)
-				flag->prc = tmp;
-		}
-		i++;
-	}
-	return (0);
-}
-
-/*
-int		star_width(char *fmt)
-{
-	int i;
-
-	i = 0;
-	while (fmt[i])
-	{
-		if (fmt[i] == '*' && (i == 0 || (i > 0 && fmt[i - 1] != '.')))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int		star_precision(char *fmt)
-{
-	int i;
-
-	i = 0;
-	while (fmt[i])
-	{
-		if (fmt[i] == '*' && i > 0 && fmt[i - 1] == '.')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-*/

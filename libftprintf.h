@@ -21,10 +21,16 @@
 # define TYPE_PTR "n"
 # define TYPE_CHR "cCsS"
 # define TYPE_DBL "aAeEfFgG"
+# define T_INT 1
+# define T_PTR 2
+# define T_CHR 3
+# define T_DBL 4
+# define T_OTHER 5
 
 typedef struct		s_m
 {
 	char	s;
+	int		type;
 	int		hh;
 	int		h;
 	int		ll;
@@ -44,8 +50,6 @@ typedef struct		s_f
 	int		ap;
 	int		width;
 	int		prc;
-	int		star_w;//
-	int		star_prc;//
 	int		dol_w;
 	int		dol_prc;
 	int		n;
@@ -55,10 +59,10 @@ int					ft_printf(const char *format, ...);
 int					print_format(const char *format, int n, va_list ap,
 					va_list cp);
 int					parsing(char **str, int n, va_list ap, va_list cp);
-int					extract_fmt(char **str, char **fmt);
+int					extract_fmt(char **str, char **fmt, char *specifier);
 int					basic_type(char c);
 int					arg_num(t_size mod, t_flags flag, va_list ap, va_list cp);
-t_size				parse_modifiers(char *fmt, int b_type);
+t_size				parse_modifiers(char *fmt, int b_type, char specifier);
 t_flags				parse_flags(char *fmt, va_list ap, va_list cp, int n);
 int					count_char(char *str, char c);
 int					dollar_arg(char *fmt);
@@ -68,14 +72,10 @@ int					dollar_value(char *str);
 int					zero_flag(char *fmt);
 int					width_value(char *fmt);
 int					prc_value(char *fmt);
-int					star_width(char *fmt);//del
-int					star_precision(char *fmt);//del
-int					star_value(int dollar, va_list ap, va_list cp);//del
+int					star_value(int dollar, va_list ap, va_list cp);
 int					star_value_width(int dollar, int *minus, va_list ap,
 					va_list cp);
 int					star_value_precision(int dollar, va_list ap, va_list cp);
-char				specifier(char *fmt);
-char				specifier_rest(char *fmt);
 int					arg_num(t_size mod, t_flags flag, va_list ap, va_list cp);
 long long			arg_sg(t_size mod, int	dollar, va_list ap, va_list cp);
 long long			conv_sg_dol(t_size mod, int dollar, va_list cp);
@@ -116,7 +116,7 @@ char				*make_str_wchr(wchar_t *w, t_size mod);
 char				*ft_unicode(wchar_t c, char **str);
 void				precision_chr(char **str, int prc);
 char				*ft_strjoin_leaks(char **s1, char **s2);
-int					nonvalid(t_flags flag, t_size mod, int c);
+int					nonvalid(t_flags flag, t_size mod);
 int					star(char *fmt, t_flags *flag, va_list ap, va_list cp);
 char				*conv_chr_c(t_size mod, va_list ap);
 char				*conv_chr_s(t_size mod, va_list ap);

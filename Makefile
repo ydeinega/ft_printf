@@ -3,7 +3,7 @@ NAME = libftprintf.a
 FLAGS = -Wall -Wextra -Werror -I. -c
 
 SRCS = apostrophe.c arg_char.c arg_num.c arg_ptr.c \
-conv_char.c conv_num.c dollar_flag.c flags.c flags_value.c \
+conv_char.c conv_num.c dollar_flag.c flags.c zero_width_prc.c \
 ft_printf.c itoa_base.c sign_num.c star_flag.c str_num.c \
 width_num.c nonvalid.c str_wchar.c
 
@@ -33,18 +33,21 @@ ft_putnbr.o ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o \
 ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o ft_lstiter.o ft_lstmap.o \
 ft_realloc.o ft_isspace.o ft_lstprint.o ft_lstaddb.o ft_memdel_md.o
 
+OBJS_LIB_2 = $(SRCS_LIB:.c=.o)
+
 all: $(NAME)
 
 $(NAME):
 	gcc $(SRCS_LIB) $(FLAGS)
 	ar rc $(NAME) $(OBJS_LIB)
 	ranlib $(NAME)
-	/bin/rm -f $(OBJS_LIB)
 	gcc $(SRCS) $(FLAGS)
 	ar -q $(NAME) $(OBJS)
 	ranlib $(NAME)
 
 clean:
+	/bin/rm -f $(OBJS_LIB)
+	/bin/rm -f $(OBJS_LIB_2)
 	/bin/rm -f $(OBJS)
 
 fclean: clean

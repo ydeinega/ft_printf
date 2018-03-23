@@ -66,10 +66,10 @@ int		parsing(char **str, int n, va_list ap, va_list cp)
 
 	ret = 0;
 	fmt = NULL;
-	b_type = extract_fmt(str, &fmt);
+	b_type = extract_fmt(str, &fmt, &mod.s);
 	if (fmt)
 	{
-		mod = parse_modifiers(fmt, b_type);
+		mod = parse_modifiers(fmt, b_type, mod.s);
 		flag = parse_flags(fmt, ap, cp, n);
 		ft_strdel(&fmt);
 	}
@@ -80,11 +80,11 @@ int		parsing(char **str, int n, va_list ap, va_list cp)
 	else if (b_type == 3)
 		ret = arg_char(mod, flag, ap, cp);
 	else
-		ret = nonvalid(flag, mod, b_type);
+		ret = nonvalid(flag, mod);
 	return (ret);
 }
 
-int		extract_fmt(char **str, char **fmt)
+int		extract_fmt(char **str, char **fmt, char *specifier)
 {
 	int		i;
 	int		ret;
@@ -97,13 +97,9 @@ int		extract_fmt(char **str, char **fmt)
 	s = *str;
 	while (s[i] && (ret = basic_type(s[i])) == 0)
 		i++;
-	if (ret == -1)
-		*str = ft_strdup(&s[i]);
-	else
-	{
-		*fmt = ft_strsub(s, 1, i);
-		*str = ft_strdup(&s[i + 1]);
-	}
+	*specifier = s[i] == 'i' ? 'd' : s[i];
+	*fmt = ft_strsub(s, 1, i);
+	*str = ft_strdup(&s[i + 1]);
 	return (ret);
 }
 
@@ -120,5 +116,5 @@ int		basic_type(char c)
 	else if (ft_strchr(TYPE_DBL, c))
 		return (4);
 	else
-		return ((int)c);
+		return (5);
 }

@@ -35,7 +35,7 @@ char	*minus_zero_num(char *str, int len, t_flags flag, t_size mod)
 	s_new = ft_strnew(flag.width);
 	if (!s_new)
 		return (NULL);
-	if (flag.minus && !ft_strlen(str) && (mod.s == 'c' || mod.s == 'C')) 
+	if (flag.minus && !ft_strlen(str) && (mod.s == 'c' || mod.s == 'C'))
 		s_new = ft_memset(s_new, ' ', flag.width - len);
 	else if (flag.minus)
 	{
@@ -45,10 +45,10 @@ char	*minus_zero_num(char *str, int len, t_flags flag, t_size mod)
 	}
 	else
 	{
-		if ((flag.zero && flag.prc == -1 && ft_strchr(TYPE_INT, mod.s)) ||
-			(flag.zero && ft_strchr(TYPE_CHR, mod.s)) ||
-			(flag.zero && !ft_strchr(TYPE_CHR, mod.s) && !ft_strchr(TYPE_INT, mod.s)))//переделать кусок. может b_type в мод загнать
-			s_new = ft_memset(s_new, '0', flag.width - len);//и каждый раз не вайлить. Это тупо!
+		if ((flag.zero && flag.prc == -1 && mod.type == T_INT) ||
+			(flag.zero && mod.type == T_CHR) ||
+			(flag.zero && (mod.type == T_PTR || mod.type == T_OTHER)))
+			s_new = ft_memset(s_new, '0', flag.width - len);
 		else
 			s_new = ft_memset(s_new, ' ', flag.width - len);
 	}
